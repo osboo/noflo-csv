@@ -56,7 +56,7 @@ describe "ConvertCsvToMatrix", ->
     it "should send the parsed data to the out port", ->
       chai.expect(outMessages).to.deep.equal( [ ] )
 
-    it "should not send any error messages", ->
+    it "should send an error messages", ->
       chai.expect(errorMessages).to.deep.equal( [
         csvText: '#Welcome\n"1","2","3","4"\n"a","b","c","d',
         error: "Quoted field not terminated at line 1"
