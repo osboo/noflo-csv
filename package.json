@@ -1,0 +1,38 @@
+{
+  "name": "noflo-csv",
+  "description": "Components for the NoFlo flow-based programming environment to convert CSV data to and from JavaScript objects",
+  "author": "Robin Galloway-Lunn <robingl@aecher.com>",
+  "version": "0.0.1",
+  "licenses": [{
+    "type": "MIT"
+  }],
+  "repository" : {
+    "type" : "git"
+  , "url" : "https://github.com/robingl/noflo-csv.git"
+  },
+  "keywords": ["noflo","csv"],
+  "engines": {
+    "node": ">=0.10.5"
+  },
+  "dependencies": {
+    "coffee-script": "1.4.x",
+    "noflo": ">=0.4.0",
+    "csv": "0.3.x",
+    "underscore": "1.5.x"
+  },
+  "devDependencies": {
+    "mocha": "~1.9.0",
+    "chai": "~1.5.0",
+    "coffeelint": "*"
+  },
+  "noflo": {
+    "components": {
+      "ConvertCsvToMatrix": "./components/ConvertCsvToMatrix.coffee",
+      "ConvertCsvToObjectPerRow": "./components/ConvertCsvToObjectPerRow.coffee"
+    }
+  },
+  "scripts": {
+    "pretest": "./node_modules/.bin/coffeelint  -f coffeelint_config.json -r components spec",
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script spec/*"
+  }
+}

@@ -1,4 +1,4 @@
-noflo-csv
+NoFlo CSV
 =========
 
 NoFlo components to convert CSV data to and from JavaScript objects.
