@@ -28,7 +28,7 @@ class ConvertCsvToObjectPerRow extends noflo.Component
           header = parsedRow
           @outPorts.out.beginGroup { startTime: new Date(), headers: header }
       .on 'error', (error) =>
-        @outPorts.error.send { csvText: csvText, error: error }
+        @outPorts.error.send { csvText: csvText, error: error.message }
       .on "end", =>
         @outPorts.out.endGroup()
 
