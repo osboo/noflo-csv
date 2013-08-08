@@ -31,7 +31,15 @@ class ConvertCsvToObjectPerRow extends noflo.Component
       config: new noflo.Port()
     @outPorts =
       # OUT out port sends a JavaScript object representing a row of the CSV data that was parsed.  The object keys will
-      # be the column headers from the first row of data.
+      # be the column headers from the first row of data.  The example data above would look as follows on the OUT port:
+      #<pre>
+      # {
+      #   "1": "a",
+      #   "2": "b",
+      #   "3": "c",
+      #   "4": "d"
+      # }
+      #</pre>
       out: new noflo.Port()
       # ERROR out port sends any error messages from parsing the text CSV data.
       error: new noflo.Port()
