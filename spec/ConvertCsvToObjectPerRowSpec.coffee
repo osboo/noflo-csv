@@ -7,7 +7,7 @@ if typeof process is "object" and process.title is "node"
 describe "ConvertCsvToObjectPerRow", ->
   @timeout 5000  # Dear mocha, don't timeout tests that take less than 5 seconds. Kthxbai
   component = null
-  inSocket = null
+  csvSocket = null
   outSocket = null
   errorSocket = null
   outMessages = []
@@ -15,11 +15,11 @@ describe "ConvertCsvToObjectPerRow", ->
 
   before ->
     component = componentModule.getComponent()
-    inSocket = noflo.internalSocket.createSocket()
+    csvSocket = noflo.internalSocket.createSocket()
     outSocket = noflo.internalSocket.createSocket()
     errorSocket = noflo.internalSocket.createSocket()
 
-    component.inPorts.in.attach inSocket
+    component.inPorts.csv.attach csvSocket
     component.outPorts.out.attach outSocket
     component.outPorts.error.attach errorSocket
 
@@ -36,7 +36,7 @@ describe "ConvertCsvToObjectPerRow", ->
       outMessages.length = 0
       errorMessages.length = 0
 
-      inSocket.send 'ts,year,ms,chars,age,date\n20322051544,1979.0,8.8017226E7,ABC,45,2000-01-01\n28392898392,1974.0,8.8392926E7,DEF,23,2050-11-27\n'
+      csvSocket.send 'ts,year,ms,chars,age,date\n20322051544,1979.0,8.8017226E7,ABC,45,2000-01-01\n28392898392,1974.0,8.8392926E7,DEF,23,2050-11-27\n'
       setTimeout done, 1000  # wait 1 second to be sure all messages have been processed.
 
     it "should send the parsed data to the out port", ->
@@ -53,7 +53,7 @@ describe "ConvertCsvToObjectPerRow", ->
       outMessages.length = 0
       errorMessages.length = 0
 
-      inSocket.send 'ts,year,ms,chars,age,date\n20322051544,1979.0,8.8017226E7,ABC,45,2000-01-01\n28392898392,1974.0,8.8392926E7,DEF,"23,2050-11-27\n'
+      csvSocket.send 'ts,year,ms,chars,age,date\n20322051544,1979.0,8.8017226E7,ABC,45,2000-01-01\n28392898392,1974.0,8.8392926E7,DEF,"23,2050-11-27\n'
       setTimeout done, 1000  # wait 1 second to be sure all messages have been processed.
 
     it "should send the parsed data to the out port", ->

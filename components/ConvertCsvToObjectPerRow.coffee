@@ -8,7 +8,7 @@ class ConvertCsvToObjectPerRow extends noflo.Component
     @parseOptions = comment: '#', delimiter: ',', escape: '"'
 
     @inPorts =
-      in: new noflo.Port()
+      csv: new noflo.Port()
       config: new noflo.Port()
     @outPorts =
       out: new noflo.Port()
@@ -17,7 +17,7 @@ class ConvertCsvToObjectPerRow extends noflo.Component
     @inPorts.config.on "data", (newOptions) =>
       @parseOptions = newOptions
 
-    @inPorts.in.on "data", (csvText) =>
+    @inPorts.csv.on "data", (csvText) =>
       header = null
 
       csv().from.string(csvText, @parseOptions)
