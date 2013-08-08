@@ -7,13 +7,13 @@ class ConvertCsvToMatrix extends noflo.Component
     @parseOptions = comment: '#', delimiter: ',', escape: '"'
 
     @inPorts =
-      options: new noflo.Port()
       csv: new noflo.Port()
+      config: new noflo.Port()
     @outPorts =
       out: new noflo.Port()
       error: new noflo.Port()
 
-    @inPorts.options.on "data", (newOptions) =>
+    @inPorts.config.on "data", (newOptions) =>
       @parseOptions = newOptions
 
     @inPorts.csv.on "data", (csvText) =>
