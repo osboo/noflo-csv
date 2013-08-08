@@ -9,12 +9,12 @@ class ConvertCsvToObjectPerRow extends noflo.Component
 
     @inPorts =
       in: new noflo.Port()
-      options: new noflo.Port()
+      config: new noflo.Port()
     @outPorts =
       out: new noflo.Port()
       error: new noflo.Port()
 
-    @inPorts.options.on "data", (newOptions) =>
+    @inPorts.config.on "data", (newOptions) =>
       @parseOptions = newOptions
 
     @inPorts.in.on "data", (csvText) =>
