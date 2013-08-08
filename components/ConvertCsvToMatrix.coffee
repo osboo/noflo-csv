@@ -2,7 +2,7 @@
 noflo = require "noflo"
 csv = require "csv"
 
-# This component converts CSV text from the IN port into an array of arrays on the JSON port.  Either the whole input
+# This component converts CSV text from the CSV port into an array of arrays on the OUT port.  Either the whole input
 # parses and will be sent on the out port or an error message will be sent.  1 message on the CSV port results in 1 message
 # on either the out or error ports.
 #<pre>
