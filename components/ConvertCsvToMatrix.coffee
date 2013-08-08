@@ -7,8 +7,8 @@ class ConvertCsvToMatrix extends noflo.Component
     @parseOptions = comment: '#', delimiter: ',', escape: '"'
 
     @inPorts =
-      in: new noflo.Port()
       options: new noflo.Port()
+      csv: new noflo.Port()
     @outPorts =
       out: new noflo.Port()
       error: new noflo.Port()
@@ -16,7 +16,7 @@ class ConvertCsvToMatrix extends noflo.Component
     @inPorts.options.on "data", (newOptions) =>
       @parseOptions = newOptions
 
-    @inPorts.in.on "data", (csvText) =>
+    @inPorts.csv.on "data", (csvText) =>
       csv().from.string(csvText, @parseOptions)
       .to.array (parsedRowArrays) =>
         @outPorts.out.send parsedRowArrays
