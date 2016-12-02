@@ -1,4 +1,3 @@
-
 noflo = require "noflo"
 csv = require "csv"
 
@@ -41,7 +40,9 @@ class ConvertCsvToMatrix extends noflo.Component
       csv().from.string(csvText, @parseOptions)
       .to.array (parsedRowArrays) =>
         @outPorts.out.send parsedRowArrays
+        @outPorts.out.disconnect()
       .on "error", (error) =>
         @outPorts.error.send { csvText: csvText, error: error.message }
+        @outPorts.error.disconnect()
 
 exports.getComponent = -> new ConvertCsvToMatrix()

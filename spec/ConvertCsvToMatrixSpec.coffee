@@ -1,8 +1,7 @@
-if typeof process is "object" and process.title is "node"
-  chai = require "chai" unless chai
-  componentModule = require "../components/ConvertCsvToMatrix"
-  noflo = require "noflo"
-  util = require "util"
+chai = require "chai" unless chai
+componentModule = require "../components/ConvertCsvToMatrix"
+noflo = require "noflo"
+util = require "util"
 
 describe "ConvertCsvToMatrix", ->
   @timeout 5000  # Dear mocha, don't timeout tests that take less than 5 seconds. Kthxbai
@@ -45,6 +44,9 @@ describe "ConvertCsvToMatrix", ->
     it "should not send any error messages", ->
       chai.expect(errorMessages).to.deep.equal( [ ] )
 
+    it "should shutdown out port", ->
+      chai.expect(component.outPorts.out.sockets.map ((i) -> i.isConnected())).to.eql([false])
+
   describe "can report errors", ->
     before (done) ->
       outMessages.length = 0
@@ -61,3 +63,6 @@ describe "ConvertCsvToMatrix", ->
         csvText: '#Welcome\n"1","2","3","4"\n"a","b","c","d',
         error: "Quoted field not terminated at line 1"
       ] )
+
+    it "should shutdown error port", ->
+      chai.expect(component.outPorts.error.sockets.map ((i) -> i.isConnected())).to.eql([false])

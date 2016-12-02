@@ -1,8 +1,7 @@
-if typeof process is "object" and process.title is "node"
-  chai = require "chai" unless chai
-  componentModule = require "../components/ConvertCsvToObjectPerRow"
-  noflo = require "noflo"
-  util = require "util"
+chai = require "chai" unless chai
+componentModule = require "../components/ConvertCsvToObjectPerRow"
+noflo = require "noflo"
+util = require "util"
 
 describe "ConvertCsvToObjectPerRow", ->
   @timeout 5000  # Dear mocha, don't timeout tests that take less than 5 seconds. Kthxbai
@@ -48,6 +47,9 @@ describe "ConvertCsvToObjectPerRow", ->
     it "should not send any error messages", ->
       chai.expect(errorMessages).to.deep.equal( [ ] )
 
+    it "should shutdown out port", ->
+      chai.expect(component.outPorts.out.sockets.map ((i) -> i.isConnected())).to.eql([false])
+
   describe "can report errors", ->
     before (done) ->
       outMessages.length = 0
@@ -66,3 +68,6 @@ describe "ConvertCsvToObjectPerRow", ->
         csvText: 'ts,year,ms,chars,age,date\n20322051544,1979.0,8.8017226E7,ABC,45,2000-01-01\n28392898392,1974.0,8.8392926E7,DEF,"23,2050-11-27\n',
         error: "Quoted field not terminated at line 1"
       ] )
+
+    it "should shutdown error port", ->
+      chai.expect(component.outPorts.error.sockets.map ((i) -> i.isConnected())).to.eql([false])
